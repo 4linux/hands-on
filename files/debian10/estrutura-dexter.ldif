@@ -1,0 +1,79 @@
+dn: o=matriz,dc=dexter,dc=com,dc=br
+o: matriz
+objectClass: organization
+objectClass: top
+
+dn: o=filial,dc=dexter,dc=com,dc=br
+o: filial
+objectClass: organization
+objectClass: top
+
+dn: ou=Usuarios,o=matriz,dc=dexter,dc=com,dc=br
+ou: Usuarios
+objectClass: organizationalUnit
+objectClass: top
+
+dn: ou=Usuarios,o=filial,dc=dexter,dc=com,dc=br
+ou: Usuarios
+objectClass: organizationalUnit
+objectClass: top
+
+dn: cn=ltorvalds,ou=Usuarios,o=matriz,dc=dexter,dc=com,dc=br
+uid: ltorvalds
+cn: Linus
+sn: Torvalds
+objectClass: inetOrgPerson
+objectClass: posixAccount
+homeDirectory: /home/linust
+loginShell: /bin/bash
+uidNumber: 1020
+gidNumber: 1020
+userPassword: linux
+
+dn: cn=Richard  Stallman,ou=Usuarios,o=matriz,dc=dexter,dc=com,dc=br
+uid: stallman
+cn: Richard
+sn: Stallman
+objectClass: inetOrgPerson
+objectClass: posixAccount
+homeDirectory: /home/rstallman
+loginShell: /bin/bash
+uidNumber: 1021
+gidNumber: 1021
+userPassword: gnuisnotunix
+
+
+dn: ou=Grupos,o=matriz,dc=dexter,dc=com,dc=br
+ou: Grupos
+objectClass: organizationalUnit
+objectClass: top
+
+dn: ou=Computadores,o=matriz,dc=dexter,dc=com,dc=br
+ou: Computadores
+objectClass: organizationalUnit
+objectClass: top
+
+dn: ou=Agendas,o=matriz,dc=dexter,dc=com,dc=br
+ou: Agendas
+objectClass: organizationalUnit
+objectClass: top
+
+dn: ou=Grupos,o=filial,dc=dexter,dc=com,dc=br
+ou: Grupos
+objectClass: organizationalUnit
+objectClass: top
+
+dn: ou=Computadores,o=filial,dc=dexter,dc=com,dc=br
+ou: Computadores
+objectClass: organizationalUnit
+objectClass: top
+
+dn: ou=Agendas,o=filial,dc=dexter,dc=com,dc=br
+ou: Agendas
+objectClass: organizationalUnit
+objectClass: top
+
+dn: ou=restrito,ou=Agendas,o=filial,dc=dexter,dc=com,dc=br
+ou: restrito
+objectClass: organizationalUnit
+objectClass: top

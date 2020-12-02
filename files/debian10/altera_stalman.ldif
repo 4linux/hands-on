@@ -1,0 +1,3 @@
+dn: cn=Richard  Stallman,ou=Usuarios,o=matriz,dc=dexter,dc=com,dc=br
+replace: uid
+uid: rstallman
