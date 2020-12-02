@@ -1,4 +1,4 @@
-# Week 4linux
+# Hands-On 4linux
 
 Este repositório é o ambiente referente a semana Hands-On 4linux.
 
