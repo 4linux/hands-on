@@ -37,7 +37,7 @@ vagrant status
 Para entrar em uma máquina:
 
 ```bash
-vagrant ssh server01
+vagrant ssh debian10
 ```
 
 Para iniciar as máquinas:
