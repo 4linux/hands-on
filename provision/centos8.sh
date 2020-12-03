@@ -1,21 +1,14 @@
-sudo sed -i 's/^SELINUX=.*/SELINUX=disabled/g' /etc/selinux/config
+sed -i 's/^SELINUX=.*/SELINUX=disabled/g' /etc/selinux/config
 
-sudo setenforce 0
+setenforce 0
 
-sudo yum  install chrony bind-utils net-tools tcpdump telnet vim epel-release  wget  mailx tzdata tzdata-java  sysstat  traceroute iotop langpacks-en glibc-all-langpacks bc openldap-clients lvm2 -y
+dnf install -y chrony bind-utils net-tools tcpdump telnet vim epel-release  wget  mailx tzdata tzdata-java  sysstat  traceroute iotop langpacks-en glibc-all-langpacks bc openldap-clients lvm2 network-scripts
 
-sudo  systemctl disable firewalld
+systemctl disable firewalld NetworkManager
+systemctl enable network
 
-sudo  yum install network-scripts -y
+> /etc/sysconfig/disable-deprecation-warnings
 
-sudo systemctl enable network
+systemctl stop firewalld NetworkManager
 
-sudo touch /etc/sysconfig/disable-deprecation-warnings
-
-sudo systemctl disable NetworkManager
-
-sudo systemctl stop firewalld
-
-sudo systemctl stop NetworkManager
-
-sudo timedatectl set-timezone America/Sao_Paulo
+timedatectl set-timezone America/Sao_Paulo
