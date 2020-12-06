@@ -22,11 +22,9 @@ Vagrant.configure('2') do |config|
         vb.cpus = conf['cpus']
       end
       if name == 'centos8'
-        my.vm.network "private_network", ip: "172.16.31.#{conf['ip_int']}" , virtualbox__intnet: "dexter"
         my.vm.provision "file", source: "./files/centos8", destination: "~/centos8"
       end
       if name == 'debian10'
-         my.vm.network "private_network", type: "dhcp" , virtualbox__intnet: "dexter"
          my.vm.provision "file", source: "./files/debian10", destination: "~/debian10"
       end
       my.vm.provider 'libvirt' do |lv|
