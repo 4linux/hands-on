@@ -12,3 +12,8 @@ systemctl enable network
 systemctl stop firewalld NetworkManager
 
 timedatectl set-timezone America/Sao_Paulo
+
+id devops
+if [$? -ne 0]; then
+    useradd -m -d /home/devops -s /bin/bash devops
+fi
