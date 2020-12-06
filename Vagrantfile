@@ -21,12 +21,6 @@ Vagrant.configure('2') do |config|
         vb.memory = conf['memory']
         vb.cpus = conf['cpus']
       end
-      if name == 'centos8'
-        my.vm.provision "file", source: "./files/centos8", destination: "~/centos8"
-      end
-      if name == 'debian10'
-         my.vm.provision "file", source: "./files/debian10", destination: "~/debian10"
-      end
       my.vm.provider 'libvirt' do |lv|
         lv.memory = conf['memory']
         lv.cpus = conf['cpus']
