@@ -8,9 +8,9 @@ mysql_secure_installation
 
 systemctl enable --now httpd
 
-cp /opt/centos8/httpd.conf /etc/httpd/conf/httpd.conf
+cp /vagrant/centos8/httpd.conf /etc/httpd/conf/httpd.conf
 
-cp  /opt/centos8/php.ini /etc/php.init
+cp  /vagrant/centos8/php.ini /etc/php.ini
 
 systemctl restart httpd
 
