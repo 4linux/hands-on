@@ -4,7 +4,7 @@ sed -i 's/^SELINUX=.*/SELINUX=disabled/g' /etc/selinux/config
 
 setenforce 0
 
-dnf install -y chrony bind-utils net-tools tcpdump telnet vim epel-release  wget  mailx tzdata tzdata-java  sysstat  traceroute iotop langpacks-en glibc-all-langpacks bc openldap-clients lvm2 network-scripts
+dnf install -y chrony bind-utils net-tools tcpdump telnet vim epel-release  wget  mailx tzdata tzdata-java  sysstat  traceroute iotop langpacks-en glibc-all-langpacks bc openldap-clients lvm2 network-scripts python3
 
 systemctl disable firewalld NetworkManager
 
