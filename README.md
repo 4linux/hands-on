@@ -17,9 +17,9 @@ Para clonar o repositório você precisará do [git](https://git-scm.com/), para
 Clone o repositório em algum diretório da sua máquina e inicie as vms:
 
 ```bash
-git git clone https://github.com/4linux/hands-on.git
+git clone https://github.com/4linux/hands-on.git
 cd hands-on
-vagrant up
+vagrant up --provider virtualbox
 ```
 
 As máquinas serão provisionadas, este processo leva alguns minutos e depende da sua velocidade de conexão com a internet.
