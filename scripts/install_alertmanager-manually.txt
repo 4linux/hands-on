@@ -1,0 +1,68 @@
+sudo adduser --no-create-home --disabled-login --shell /bin/false --gecos "Alertmanager User" alertmanager
+
+
+sudo mkdir /etc/alertmanager
+sudo mkdir /etc/alertmanager/template
+sudo mkdir -p /var/lib/alertmanager/data
+sudo touch /etc/alertmanager/alertmanager.yml
+
+sudo chown -R alertmanager:alertmanager /etc/alertmanager
+sudo chown -R alertmanager:alertmanager /var/lib/alertmanager
+
+wget https://github.com/prometheus/alertmanager/releases/download/v0.21.0/alertmanager-0.21.0.linux-amd64.tar.gz﻿
+
+tar xvzf alertmanager-0.21.0.linux-amd64.tar.gz
+
+cd alertmanager-0.21.0.linux-amd64
+
+sudo cp  alertmanager /bin/
+sudo cp  amtool /bin/
+
+chown alertmanager:alertmanager /bin/alertmanager
+chown alertmanager:alertmanager /bin/amtool
+
+vim 
+
+/etc/alertmanager/alertmanager.yml
+
+global:
+  smtp_smarthost: 'localhost:25'
+  smtp_from: 'alertmanager@example.org'
+  smtp_auth_username: 'alertmanager'
+  smtp_auth_password: 'password'
+
+templates:
+- '/etc/alertmanager/template/*.tmpl'
+
+route:
+  repeat_interval: 3h
+  receiver: team-X-mails
+
+receivers:
+- name: 'team-X-mails'
+  email_configs:
+  - to: 'team-X+alerts@example.org'
+
+vim 
+
+/etc/systemd/system/alertmanager.service
+
+
+[Unit]
+Description=Prometheus Alertmanager Service
+Wants=network-online.target
+After=network.target
+
+[Service]
+User=alertmanager
+Group=alertmanager
+Type=simple
+ExecStart=/bin/alertmanager \
+    --config.file /etc/alertmanager/alertmanager.yml \
+    --storage.path /var/lib/alertmanager/data
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+
+vim /etc/prometheus/prometheus.yml
