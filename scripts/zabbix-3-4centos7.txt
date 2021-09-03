@@ -1,0 +1,75 @@
+# Instalação Zabbix Server 3.4 - Step a step
+
+# Instalar httpd (apache) e banco de dados mariadb (mysql)
+
+yum install httpd php mariadb-server
+systemctl enable --now  mariadb
+mysql_secure_installation
+
+Enter current password for root (enter for none):
+Set root password? [Y/n] Y
+Remove anonymous users? [Y/n] Y
+Disallow root login remotely? [Y/n] Y
+Remove test database and access to it? [Y/n] Y
+Reload privilege tables now? [Y/n] Y
+
+
+# Instalar repositório do zabbix
+
+rpm -ivh http://repo.zabbix.com/zabbix/3.4/rhel/7/x86_64/zabbix-release-3.4-2.el7.noarch.rpm
+
+# Instalar os pacotes do zabbix server
+
+yum install zabbix-server-mysql zabbix-web-mysql
+
+# Criar a database do zabbix
+
+mysql -uroot -p
+MariaDB [(none)]> CREATE DATABASE zabbix CHARACTER SET utf8;
+MariaDB [(none)]> GRANT ALL PRIVILEGES ON zabbix.* TO 'zabbix'@'localhost' IDENTIFIED BY 'zabbix_passwd';
+MariaDB [(none)]> FLUSH PRIVILEGES;
+MariaDB [(none)]> quit; 
+
+# "Popular" o banco zabbix
+
+zcat /usr/share/doc/zabbix-server-mysql-3.4.15/create.sql.gz | mysql -u zabbix -p zabbix
+
+# Configurar a senha do banco zabbix
+
+vim /etc/zabbix/zabbix_server.conf
+
+### Option: DBPassword
+# Database password. Ignored for SQLite.
+# Comment this line if no password is used.
+#
+# Mandatory: no
+# Default:
+DBPassword=zabbix
+
+# Iniciar o serviço do apache e ativar na inicialização
+
+systemctl enable --now httpd
+
+# Configurar timezone no php
+
+vim /etc/httpd/conf.d/zabbix.conf
+
+uncomment the date.timezone line and set your timezone, in our case that is America/Chicago
+
+php_value max_execution_time 300
+php_value memory_limit 128M
+php_value post_max_size 16M
+php_value upload_max_filesize 2M
+php_value max_input_time 300
+php_value always_populate_raw_post_data -1
+php_value date.timezone America/Sao_Paulo
+
+# Reiniciar apache 
+
+systemctl restart httpd
+
+systemctl enable --now zabbix-server
+
+systemctl status zabbix-server
+
+http://your_server_ip_address/zabbix/
