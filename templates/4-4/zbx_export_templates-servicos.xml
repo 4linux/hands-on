@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>4.4</version>
+    <date>2021-09-03T16:23:41Z</date>
+    <groups>
+        <group>
+            <name>Template personalizados</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <template>Template para monitoramento de servicos</template>
+            <name>Template para monitoramento de servicos</name>
+            <groups>
+                <group>
+                    <name>Template personalizados</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>Portas em Escuta</name>
+                </application>
+                <application>
+                    <name>Serviço SSH</name>
+                </application>
+            </applications>
+            <items>
+                <item>
+                    <name>Servico SSH</name>
+                    <key>net.tcp.service[ssh,,22]</key>
+                    <delay>30s</delay>
+                    <applications>
+                        <application>
+                            <name>Serviço SSH</name>
+                        </application>
+                    </applications>
+                    <triggers>
+                        <trigger>
+                            <expression>{last()}=0</expression>
+                            <name>Servio SSH parou em {HOST.NAME}</name>
+                            <priority>HIGH</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+            </items>
+            <discovery_rules>
+                <discovery_rule>
+                    <name>Descoberta de serviço de rede</name>
+                    <key>lld.services</key>
+                    <description>Descoberta personalizada de serviços de rede</description>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>Serviço {#SERVICE} executando na porta {#PORT}</name>
+                            <key>net.tcp.listen[{#PORT}]</key>
+                            <delay>30s</delay>
+                            <applications>
+                                <application>
+                                    <name>Portas em Escuta</name>
+                                </application>
+                            </applications>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{last()}=0</expression>
+                                    <name>Serviço {#SERVICE} executando na porta {#PORT} esta indisponivel</name>
+                                    <priority>HIGH</priority>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                    </item_prototypes>
+                </discovery_rule>
+            </discovery_rules>
+        </template>
+    </templates>
+</zabbix_export>
